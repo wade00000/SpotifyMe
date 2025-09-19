@@ -6,6 +6,7 @@ import {redirectToAuthCodeFlow,
         getAccessToken } from "./spotifyApi";
 import Profile from "./components/Profile";
 
+
 function App(){
     const [userProfile,setUserProfile] = useState([])
     const [userTracks,setUserTracks] = useState([])
@@ -82,7 +83,7 @@ function App(){
     }
     
     return(
-        <Profile profile={userProfile} tracks={userTracks}/>
+        <Profile profile={userProfile} tracks={userTracks} playlists={userPlaylists}/>
     )
 }
 

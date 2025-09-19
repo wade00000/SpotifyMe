@@ -1,12 +1,13 @@
 import { useEffect,useState} from "react";
 import Track from "./Track";
+import Playlist from "./Playlist";
 
-function Profile({profile,tracks}){
+function Profile({profile,tracks,playlists}){
     
 
     return(
         <>
-        <h1>Display your Spotify profile data</h1>
+        <h1>Your Spotify Profile Data</h1>
         <section id="profile">
             <h2>Logged in as <span id="displayName">{profile.display_name}</span></h2>
             {profile.images?.length > 0 && (
@@ -23,7 +24,6 @@ function Profile({profile,tracks}){
                 <li>Email: <span id="email">{profile.email}</span></li>
                 <li>Spotify URI: <a id="uri" href={profile.uri}>{profile.uri}</a></li>
                 <li>Link: <a id="url" href={profile.href}>{profile.href}</a></li>
-                {/* <li>Profile Image: <a id="imgUrl" href={profile.images[0].url}>{profile.images[0].url}</a></li> */}
             </ul>
 
             <br/>
@@ -40,7 +40,15 @@ function Profile({profile,tracks}){
 
             <br/>
             <h2>My Playlists</h2>
-            <div id="playlists"></div>
+            <div id="playlists">
+                {playlists.items ? (
+                    playlists.items.map((playlist) => (
+                    <Playlist key={playlist.id} playlist={playlist} />
+                    ))
+                ) : (
+                    <p>Loading playlists...</p>
+               )}
+            </div>
             
             </section>
         </>
