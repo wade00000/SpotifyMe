@@ -1,12 +1,76 @@
-# React + Vite
+# SpotifyMe
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small project for exploring your Spotify listening data using the [Spotify Web API](https://developer.spotify.com/documentation/web-api/).
+Think of it as your own DIY version of Spotify Wrapped — whenever you want it.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+* Fetch your top tracks, artists, and genres
+* Explore recently played songs
+* Visualize listening habits over time
+* Export data for your own analysis
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Getting Started
+
+### Prerequisites
+
+* A Spotify account
+* [Spotify Developer App](https://developer.spotify.com/dashboard/applications) (to get a Client ID & Secret)
+* Node.js / Python (depending on your stack)
+
+### Installation
+
+```bash
+git clone https://github.com/yourusername/spotifyme.git
+cd spotifyme
+# install dependencies (adjust for npm/pip/etc.)
+```
+
+### Environment Variables
+
+Create a `.env` file with the following:
+
+```
+SPOTIFY_CLIENT_ID=your_client_id
+SPOTIFY_CLIENT_SECRET=your_client_secret
+SPOTIFY_REDIRECT_URI=http://localhost:8888/callback
+```
+
+---
+
+## Usage
+
+Run the project locally:
+
+```bash
+npm start
+```
+
+Then log in with your Spotify account to authorize access.
+You’ll be able to start pulling your personal music data right away.
+
+---
+
+## Roadmap
+
+* [ ] Add data visualizations
+* [ ] Export as CSV/JSON
+* [ ] Compare listening habits with friends
+* [ ] Deploy a web interface
+
+---
+
+## License
+
+MIT License — do whatever, just don’t sue me.
+
+---
+
+## Disclaimer
+
+This project is not affiliated with Spotify. It’s just a fan-made tool using their public API.
+# SpotifyMe
