@@ -3,7 +3,7 @@ import Track from "./Track";
 import Playlist from "./Playlist";
 import HipsterIndex from "./HipsterIndex";
 
-function Profile({profile,tracks,playlists,avgPopularity}){
+function Profile({profile,tracks,playlists}){
     
 
     return(
@@ -29,7 +29,7 @@ function Profile({profile,tracks,playlists,avgPopularity}){
             <br/>
 
             <div>
-                <HipsterIndex avgPopularity={avgPopularity} tracks={tracks}/>
+                <HipsterIndex  tracks={tracks}/>
             </div>
 
             <br/>
