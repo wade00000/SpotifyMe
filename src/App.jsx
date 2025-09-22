@@ -5,6 +5,7 @@ import {redirectToAuthCodeFlow,
         fetchUserPlaylist,
         getAccessToken } from "./spotifyApi";
 import Profile from "./components/Profile";
+import Navbar from "./components/Navbar";
 
 
 function App(){
@@ -51,6 +52,15 @@ function App(){
         init()
     },[])
 
+    function handleLogout(){
+        localStorage.removeItem("access_token")
+        setAccessToken("")
+        setUserPlaylists([])
+        setUserProfile([])
+        setUserTracks([])
+        redirectToAuthCodeFlow(clientId)
+    }
+
     async function loadUserData(token) {
         const profile = await fetchProfile(token);
     
@@ -63,6 +73,7 @@ function App(){
     
         setUserProfile(profile);
         
+        
         const topTracks = await fetchTopTracks(token);
     
         if (topTracks.error) {
@@ -71,6 +82,7 @@ function App(){
         }
     
         setUserTracks(topTracks);
+    
         
         const playlists = await fetchUserPlaylist(token)
     
@@ -83,7 +95,10 @@ function App(){
     }
     
     return(
+        <>
+        <Navbar handleClick={handleLogout}/>
         <Profile profile={userProfile} tracks={userTracks} playlists={userPlaylists}/>
+        </>
     )
 }
 

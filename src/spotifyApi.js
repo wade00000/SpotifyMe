@@ -129,9 +129,10 @@ export async function fetchProfile(token) {
 }
 
 export async function fetchTopTracks(token) {
-    const result = await fetch("https://api.spotify.com/v1/me/top/tracks?limit=10", {
+    const result = await fetch("https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=long_term", {
         headers: { Authorization: `Bearer ${token}` }
     });
+
     return await result.json();
 
 }
@@ -145,6 +146,8 @@ export async function fetchUserPlaylist(token){
     
     return await result.json();
 }
+
+
 
 function populateUI(profile) {
     // document.getElementById("displayName").innerText = profile.display_name;
