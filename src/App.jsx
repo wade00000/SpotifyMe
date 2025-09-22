@@ -52,6 +52,11 @@ function App(){
         init()
     },[])
 
+
+    useEffect(()=>{
+        calcAvgPopularity(userTracks)
+    },[userTracks])
+
     function handleLogout(){
         localStorage.removeItem("access_token")
         setAccessToken("")
@@ -93,11 +98,26 @@ function App(){
         
         setUserPlaylists(playlists)
     }
+
+    function calcAvgPopularity(userTracks){
+        if (!userTracks?.items?.length) return 0;
+
+        const total = userTracks.items.reduce((acc, item) => acc + item.popularity, 0);
+        const average = total / userTracks.items.length;
+
+        return average;
+    }
+
+    
     
     return(
         <>
         <Navbar handleClick={handleLogout}/>
-        <Profile profile={userProfile} tracks={userTracks} playlists={userPlaylists}/>
+        <Profile 
+            profile={userProfile} 
+            tracks={userTracks} 
+            playlists={userPlaylists} 
+            avgPopularity={calcAvgPopularity}/>
         </>
     )
 }

@@ -1,8 +1,9 @@
 import { useEffect,useState} from "react";
 import Track from "./Track";
 import Playlist from "./Playlist";
+import HipsterIndex from "./HipsterIndex";
 
-function Profile({profile,tracks,playlists}){
+function Profile({profile,tracks,playlists,avgPopularity}){
     
 
     return(
@@ -25,6 +26,11 @@ function Profile({profile,tracks,playlists}){
                 <li>Spotify URI: <a id="uri" href={profile.uri}>{profile.uri}</a></li>
                 <li>Link: <a id="url" href={profile.href}>{profile.href}</a></li>
             </ul>
+            <br/>
+
+            <div>
+                <HipsterIndex avgPopularity={avgPopularity} tracks={tracks}/>
+            </div>
 
             <br/>
             <h2>My Top Tracks</h2>
