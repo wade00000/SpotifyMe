@@ -7,7 +7,7 @@ let accessToken = localStorage.getItem("access_token");
 // if (accessToken) {
 //     await loadUserData(accessToken);
 // } else {
-//     // 2. Otherwise, check if Spotify gave us a code
+//     // 2. Otherwise, check if Spotify gave us a codeIllegal redirect_uri
 //     const params = new URLSearchParams(window.location.search);
 //     const code = params.get("code");
 
