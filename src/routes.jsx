@@ -18,6 +18,10 @@ const routes = [
                 element: <Home/>
             },
             {
+                path: "callback",
+                element: <div>Loading...</div>  // Just a simple loading message
+            },
+            {
                 path: "popularity",
                 element: <PopularityRankings/>
             },
