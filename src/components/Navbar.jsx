@@ -1,11 +1,20 @@
-import { NavLink } from "react-router";
+import { NavLink } from "react-router-dom";
+import "../App.css"
+
 
 function Navbar({handleClick}){
     
     return(
-        <div>
+        <nav>
+            <div>
+                <NavLink to="/">Home</NavLink>
+                <NavLink to="/popularity">Popularity Rankings</NavLink>
+                <NavLink to="/top/tracks">Top Tracks</NavLink>
+                <NavLink to="/top/genres">Top Genres</NavLink>
+                <NavLink to="/top/artists">Top Artists</NavLink>
+            </div>
             <button onClick={handleClick}>Logout</button>
-        </div>
+        </nav>
     )
 }
 

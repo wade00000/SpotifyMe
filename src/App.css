@@ -18,3 +18,14 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
+.nav a {
+  margin-right: 1rem;
+  text-decoration: none;
+  color: #333;
+}
+
+.nav a.active {
+  font-weight: bold;
+  color: #007bff;
+}

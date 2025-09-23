@@ -3,15 +3,20 @@ import {redirectToAuthCodeFlow,
         fetchProfile,
         fetchTopTracks,
         fetchUserPlaylist,
-        getAccessToken } from "./spotifyApi";
+        getAccessToken,
+        fetchTopArtists
+        } from "./spotifyApi";
 import Profile from "./components/Profile";
 import Navbar from "./components/Navbar";
+import { Outlet } from "react-router";
 
 
 function App(){
     const [userProfile,setUserProfile] = useState([])
     const [userTracks,setUserTracks] = useState([])
     const [userPlaylists,setUserPlaylists] = useState([])
+    const [userArtists,setUserArtists] = useState([])
+
     const [accessToken,setAccessToken] = useState(localStorage.getItem("access_token"))
     
     const hasInitialized = useRef(false);
@@ -94,12 +99,19 @@ function App(){
         }
         
         setUserPlaylists(playlists)
+
+
+        const topArtists = await fetchTopArtists(token)
+    
+        if (topArtists.error) {
+            console.error("Error fetching playlists:", topArtists.error);
+            return;
+        }
+        
+        setUserArtists(topArtists)
     }
 
-
-    
-
-    
+    console.log(userArtists)
     
     return(
         <>
@@ -109,6 +121,7 @@ function App(){
             tracks={userTracks} 
             playlists={userPlaylists} 
         />
+        <Outlet></Outlet>
         </>
     )
 }

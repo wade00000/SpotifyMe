@@ -148,6 +148,16 @@ export async function fetchUserPlaylist(token){
 }
 
 
+export async function fetchTopArtists(token) {
+    const result = await fetch("https://api.spotify.com/v1/me/top/artists?limit=50&time_range=long_term", {
+        headers: { Authorization: `Bearer ${token}` }
+    });
+
+    return await result.json();
+
+}
+
+
 
 function populateUI(profile) {
     // document.getElementById("displayName").innerText = profile.display_name;
