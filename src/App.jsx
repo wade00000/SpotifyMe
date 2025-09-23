@@ -116,12 +116,7 @@ function App(){
     return(
         <>
         <Navbar handleClick={handleLogout}/>
-        <Profile 
-            profile={userProfile} 
-            tracks={userTracks} 
-            playlists={userPlaylists} 
-        />
-        <Outlet></Outlet>
+        <Outlet context={[userProfile,userTracks,userPlaylists]}/>
         </>
     )
 }

@@ -4,12 +4,14 @@ import TopTracks from "./pages/TopTracks";
 import TopArtists from "./pages/TopArtists";
 import TopGenres from "./pages/TopGenres";
 import Home from "./pages/Home";
+import ErrorPage from "./pages/ErrorPage";
 
 
 const routes = [
     {
         path: "/",
         element: <App />,
+        errorElement: <ErrorPage/>,
         children: [
             {
                 index: true,
