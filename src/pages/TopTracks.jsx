@@ -8,13 +8,15 @@ function TopTracks(){
     <div>
         <h1>My Top Tracks</h1>
         <div id="top-tracks">
-            {userTracks.items ? (
-                userTracks.items.map((track) => (
-                <Track key={track.id} track={track} />
-                ))
-            ) : (
-                <p>Loading tracks...</p>
-            )}
+            <ol>
+                {userTracks.items ? (
+                    userTracks.items.map((track) => (
+                    <li key={track.id}><Track track={track} /></li>
+                    ))
+                ) : (
+                    <p>Loading tracks...</p>
+                )}
+            </ol>
         </div>
     </div>
  )

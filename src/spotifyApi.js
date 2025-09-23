@@ -69,7 +69,7 @@ export async function redirectToAuthCodeFlow(clientId) {
     params.append("client_id", clientId);
     params.append("response_type", "code");
     params.append("redirect_uri", redirectUri);
-    params.append("scope", "user-read-private user-read-email user-top-read");
+    params.append("scope", "user-read-private user-read-email user-top-read user-read-currently-playing");
     params.append("code_challenge_method", "S256");
     params.append("code_challenge", challenge);
 
@@ -150,6 +150,15 @@ export async function fetchUserPlaylist(token){
 
 export async function fetchTopArtists(token) {
     const result = await fetch("https://api.spotify.com/v1/me/top/artists?limit=50&time_range=long_term", {
+        headers: { Authorization: `Bearer ${token}` }
+    });
+
+    return await result.json();
+
+}
+
+export async function fetchCurrentlyPlaying(token) {
+    const result = await fetch("https://api.spotify.com/v1/me/player/currently-playing", {
         headers: { Authorization: `Bearer ${token}` }
     });
 

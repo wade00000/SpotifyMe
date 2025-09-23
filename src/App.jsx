@@ -5,7 +5,8 @@ import {
     fetchTopTracks,
     fetchUserPlaylist,
     getAccessToken,
-    fetchTopArtists
+    fetchTopArtists,
+    fetchCurrentlyPlaying
 } from "./spotifyApi";
 import Profile from "./components/Profile";
 import Navbar from "./components/Navbar";
@@ -16,6 +17,7 @@ function App() {
     const [userTracks, setUserTracks] = useState([])
     const [userPlaylists, setUserPlaylists] = useState([])
     const [userArtists, setUserArtists] = useState([])
+    const [currPlaying,setCurrPlaying] = useState([])
 
     const [accessToken, setAccessToken] = useState(localStorage.getItem("access_token"))
 
@@ -103,8 +105,20 @@ function App() {
         }
 
         setUserArtists(topArtists)
-    }
 
+
+        const currTrack = await fetchCurrentlyPlaying(token)
+
+        if (currTrack.error) {
+            console.error("Error fetching current track:", currTrack.error);
+            return;
+        }
+
+
+        setCurrPlaying(currTrack)
+
+    }
+     console.log(currPlaying)
     return (
         <div className="app-container">
             {/* Floating background elements */}
@@ -116,7 +130,7 @@ function App() {
             
             <Navbar handleClick={handleLogout} />
             <div className="main-content">
-                <Outlet context={{ userProfile, userTracks, userPlaylists, userArtists }} />
+                <Outlet context={{ userProfile, userTracks, userPlaylists, userArtists,currPlaying }} />
             </div>
         </div>
     )

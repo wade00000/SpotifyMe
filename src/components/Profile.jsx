@@ -3,6 +3,7 @@ import Track from "./Track";
 import Playlist from "./Playlist";
 import HipsterIndex from "./HipsterIndex";
 import "../App.css"
+import CurrentTrack from "./CurrentTrack";
 
 function Profile({ profile, tracks, playlists }) {
     // Calculate stats for dashboard
@@ -75,10 +76,10 @@ function Profile({ profile, tracks, playlists }) {
                         <li>Email: <span id="email">{profile.email}</span></li>
                         <li>Country: <span>{profile.country}</span></li>
                         <li>Account Type: <span>{profile.product}</span></li>
+                        <CurrentTrack/>
                     </ul>
 
-                    {/* Hipster Index if you have it */}
-                    {/* <HipsterIndex tracks={tracks} /> */}
+                
 
                     {/* Playlists Section */}
                     <h2 className="section-title">Your Playlists</h2>
