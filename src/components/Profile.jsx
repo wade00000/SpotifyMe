@@ -1,64 +1,112 @@
-import { useEffect,useState} from "react";
+import { useEffect, useState } from "react";
 import Track from "./Track";
 import Playlist from "./Playlist";
 import HipsterIndex from "./HipsterIndex";
+import "../App.css"
 
-function Profile({profile,tracks,playlists}){
+function Profile({ profile, tracks, playlists }) {
+    // Calculate stats for dashboard
+    const totalTracks = tracks?.items?.length || 0;
+    const totalPlaylists = playlists?.items?.length || 0;
     
+    // Get unique artists from tracks
+    const uniqueArtists = tracks?.items ? 
+        new Set(tracks.items.flatMap(track => track.artists.map(artist => artist.name))).size : 0;
+    
+    // Calculate total followers
+    const followers = profile?.followers?.total || 0;
 
-    return(
+    return (
         <>
-        <h1>Your Spotify Profile Data</h1>
-        <section id="profile">
-            <h2>Logged in as <span id="displayName">{profile.display_name}</span></h2>
-            {profile.images?.length > 0 && (
-                <img
-                    src={profile.images[0].url}
-                    alt="Profile avatar"
-                    width={250}
-                    height={300}
-                />
-            )}
-
-            <ul>
-                <li>User ID: <span id="id">{profile.id}</span></li>
-                <li>Email: <span id="email">{profile.email}</span></li>
-                <li>Spotify URI: <a id="uri" href={profile.uri}>{profile.uri}</a></li>
-                <li>Link: <a id="url" href={profile.href}>{profile.href}</a></li>
-            </ul>
-            <br/>
-
-            <div>
-                <HipsterIndex  tracks={tracks}/>
+            {/* Floating background elements */}
+            <div className="floating-elements">
+                <div className="floating-circle"></div>
+                <div className="floating-circle"></div>
+                <div className="floating-circle"></div>
             </div>
 
-            <br/>
-            <h2>My Top Tracks</h2>
-            <div id="top-tracks">
-              {tracks.items ? (
-                    tracks.items.map((track) => (
-                    <Track key={track.id} track={track} />
-                    ))
-                ) : (
-                    <p>Loading tracks...</p>
-               )}
-            </div>
+            <div className="home-container">
+                <header className="page-header">
+                    <h1>Your Spotify Analytics</h1>
+                    <p>Discover your music story through data</p>
+                </header>
 
-            <br/>
-            <h2>My Playlists</h2>
-            <div id="playlists">
-                {playlists.items ? (
-                    playlists.items.map((playlist) => (
-                    <Playlist key={playlist.id} playlist={playlist} />
-                    ))
-                ) : (
-                    <p>Loading playlists...</p>
-               )}
+                {/* Stats Overview */}
+                <div className="stats-grid">
+                    <div className="stat-card">
+                        <div className="stat-number">{totalTracks}</div>
+                        <div className="stat-label">Top Tracks</div>
+                    </div>
+                    <div className="stat-card">
+                        <div className="stat-number">{totalPlaylists}</div>
+                        <div className="stat-label">Playlists</div>
+                    </div>
+                    <div className="stat-card">
+                        <div className="stat-number">{uniqueArtists}</div>
+                        <div className="stat-label">Unique Artists</div>
+                    </div>
+                    <div className="stat-card">
+                        <div className="stat-number">{followers.toLocaleString()}</div>
+                        <div className="stat-label">Followers</div>
+                    </div>
+                </div>
+
+                <section id="profile">
+                    {/* Profile Header */}
+                    <div className="profile-header">
+                        {profile.images?.length > 0 && (
+                            <img
+                                src={profile.images[0].url}
+                                alt="Profile avatar"
+                                width={150}
+                                height={150}
+                                className="profile-avatar"
+                            />
+                        )}
+                        <div className="profile-info">
+                            <h2>Welcome back, <span id="displayName">{profile.display_name}</span></h2>
+                            <p>Ready to explore your music journey?</p>
+                        </div>
+                    </div>
+
+                    {/* Profile Details */}
+                    <ul className="profile-details">
+                        <li>User ID: <span id="id">{profile.id}</span></li>
+                        <li>Email: <span id="email">{profile.email}</span></li>
+                        <li>Country: <span>{profile.country}</span></li>
+                        <li>Account Type: <span>{profile.product}</span></li>
+                    </ul>
+
+                    {/* Hipster Index if you have it */}
+                    {/* <HipsterIndex tracks={tracks} /> */}
+
+                    {/* Playlists Section */}
+                    <h2 className="section-title">Your Playlists</h2>
+                    <div id="playlists">
+                        {playlists.items ? (
+                            playlists.items.slice(0, 12).map((playlist) => (
+                                <Playlist key={playlist.id} playlist={playlist} />
+                            ))
+                        ) : (
+                            <div className="loading">Loading playlists...</div>
+                        )}
+                    </div>
+
+                    {/* Recent Top Tracks Preview */}
+                    {tracks?.items && (
+                        <>
+                            <h2 className="section-title">Your Recent Top Tracks</h2>
+                            <div style={{ display: 'grid', gap: '15px' }}>
+                                {tracks.items.slice(0, 6).map((track) => (
+                                    <Track key={track.id} track={track} />
+                                ))}
+                            </div>
+                        </>
+                    )}
+                </section>
             </div>
-            
-            </section>
         </>
-    )
+    );
 }
 
-export default Profile
+export default Profile;

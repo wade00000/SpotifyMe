@@ -5,7 +5,7 @@ import "../App.css"
 function Navbar({handleClick}){
     
     return(
-        <nav>
+        <nav className="nav">
             <div>
                 <NavLink to="/">Home</NavLink>
                 <NavLink to="/popularity">Popularity Rankings</NavLink>
