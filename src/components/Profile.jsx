@@ -28,7 +28,8 @@ function Profile({ profile, tracks, playlists }) {
 
             <div className="home-container">
                 <header className="page-header">
-                    <h1>Your Spotify Analytics</h1>
+                    <h1>SpotifyMe</h1>
+                    <h2>Your Spotify Analytics</h2>
                     <p>Discover your music story through data</p>
                 </header>
 
