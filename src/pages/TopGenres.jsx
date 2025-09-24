@@ -5,35 +5,34 @@ import { useEffect, useRef } from 'react';
 function TopGenres() {
     const { userArtists } = useOutletContext()
     
-    if (!userArtists?.items) {
-        return (
-            <div className="loading-container">
-                <div className="loading-spinner"></div>
-                <p>Loading your genre preferences...</p>
-            </div>
-        )
-    }
-    
+    // ✅ ALL HOOKS MUST BE AT THE TOP!
+    const canvasRef = useRef(null);
+    const chartRef = useRef(null);
+
+    // Calculate data (but handle empty state safely)
     const genreCounts = {}
-    userArtists.items.forEach(artist => {
-        artist.genres.forEach(genre => {
-            if (genreCounts[genre]) {
-                genreCounts[genre]++
-            } else {
-                genreCounts[genre] = 1
-            }
+    if (userArtists?.items) {
+        userArtists.items.forEach(artist => {
+            artist.genres.forEach(genre => {
+                if (genreCounts[genre]) {
+                    genreCounts[genre]++
+                } else {
+                    genreCounts[genre] = 1
+                }
+            })
         })
-    })
+    }
 
     const sortedGenres = Object.entries(genreCounts)
         .sort((a, b) => b[1] - a[1])
         .slice(0, 10)
+    
+    const allGenres = Object.entries(genreCounts)
+        .sort((a, b) => b[1] - a[1])
 
-    const canvasRef = useRef(null);
-    const chartRef = useRef(null);
-
+    // ✅ useEffect MUST also be at the top level!
     useEffect(() => {
-        if (!canvasRef.current || sortedGenres.length === 0) return;
+        if (!canvasRef.current || sortedGenres.length === 0 || !userArtists?.items) return;
 
         // Destroy existing chart
         if (chartRef.current) {
@@ -161,6 +160,16 @@ function TopGenres() {
         };
     }, [sortedGenres, userArtists]);
 
+    
+    if (!userArtists?.items) {
+        return (
+            <div className="loading-container">
+                <div className="loading-spinner"></div>
+                <p>Loading your genre preferences...</p>
+            </div>
+        )
+    }
+
     return (
         <div className="genres-container">
             <div className="page-header">
@@ -199,7 +208,7 @@ function TopGenres() {
             <div className="genre-list-container">
                 <h3>Complete Genre Breakdown</h3>
                 <div className="genre-grid">
-                    {sortedGenres.map((genre, index) => (
+                    {allGenres.map((genre, index) => (
                         <div key={genre[0]} className="genre-item">
                             <div className="genre-rank">#{index + 1}</div>
                             <div className="genre-info">
