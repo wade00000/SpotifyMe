@@ -7,16 +7,16 @@ import CurrentTrack from "./CurrentTrack";
 
 function Profile({ profile, tracks, playlists }) {
     // Calculate stats for dashboard
-    const totalTracks = tracks?.items?.length || 0;
     const totalPlaylists = playlists?.items?.length || 0;
-    
-    // Get unique artists from tracks
-    const uniqueArtists = tracks?.items ? 
-        new Set(tracks.items.flatMap(track => track.artists.map(artist => artist.name))).size : 0;
-    
-    // Calculate total followers
+     // Calculate total followers
     const followers = profile?.followers?.total || 0;
 
+
+    // // Get unique artists from tracks
+    // const uniqueArtists = tracks?.items ? 
+    //     new Set(tracks.items.flatMap(track => track.artists.map(artist => artist.name))).size : 0;
+    
+   
     return (
         <>
             {/* Floating background elements */}
@@ -32,20 +32,12 @@ function Profile({ profile, tracks, playlists }) {
                     <h2>Your Spotify Analytics</h2>
                     <p>Discover your music story through data</p>
                 </header>
-
+                <CurrentTrack/>
                 {/* Stats Overview */}
                 <div className="stats-grid">
                     <div className="stat-card">
-                        <div className="stat-number">{totalTracks}</div>
-                        <div className="stat-label">Top Tracks</div>
-                    </div>
-                    <div className="stat-card">
                         <div className="stat-number">{totalPlaylists}</div>
                         <div className="stat-label">Playlists</div>
-                    </div>
-                    <div className="stat-card">
-                        <div className="stat-number">{uniqueArtists}</div>
-                        <div className="stat-label">Unique Artists</div>
                     </div>
                     <div className="stat-card">
                         <div className="stat-number">{followers.toLocaleString()}</div>
@@ -80,7 +72,7 @@ function Profile({ profile, tracks, playlists }) {
                                    ? profile.product.charAt(0).toUpperCase() + profile.product.slice(1)
                                    : "Unknown"}</span>
                         </li>
-                        <CurrentTrack/>
+                        
                     </ul>
 
                 

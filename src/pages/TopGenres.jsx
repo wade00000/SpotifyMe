@@ -187,10 +187,6 @@ function TopGenres() {
                     <div className="stat-number">{sortedGenres[0]?.[0] || 'N/A'}</div>
                     <div className="stat-label">Top Genre</div>
                 </div>
-                <div className="stat-card">
-                    <div className="stat-number">{sortedGenres[0]?.[1] || 0}</div>
-                    <div className="stat-label">Artists in Top Genre</div>
-                </div>
             </div>
 
             {/* Chart Container */}
