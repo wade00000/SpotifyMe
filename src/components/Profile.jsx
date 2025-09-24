@@ -75,7 +75,10 @@ function Profile({ profile, tracks, playlists }) {
                         <li>User ID: <span id="id">{profile.id}</span></li>
                         <li>Email: <span id="email">{profile.email}</span></li>
                         <li>Country: <span>{profile.country}</span></li>
-                        <li>Account Type: <span>{profile.product}</span></li>
+                        <li>Account Type:  <span>{profile.product
+                                   ? profile.product.charAt(0).toUpperCase() + profile.product.slice(1)
+                                   : "Unknown"}</span>
+                        </li>
                         <CurrentTrack/>
                     </ul>
 
