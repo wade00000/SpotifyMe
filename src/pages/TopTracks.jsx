@@ -6,7 +6,9 @@ function TopTracks(){
     
  return(
     <div>
-        <h1>My Top Tracks</h1>
+        <div className="page-header">
+                <h1>Your Top Tracks</h1>
+            </div>
         <div id="top-tracks">
             <ol>
                 {userTracks.items ? (
@@ -14,7 +16,10 @@ function TopTracks(){
                     <li key={track.id}><Track track={track} /></li>
                     ))
                 ) : (
-                    <p>Loading tracks...</p>
+                    <div className="loading-container">
+                        <div className="loading-spinner"></div>
+                        <p>Loading your tracks...</p>
+                    </div>
                 )}
             </ol>
         </div>

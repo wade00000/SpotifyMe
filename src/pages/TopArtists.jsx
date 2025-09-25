@@ -6,7 +6,8 @@ function TopArtists(){
    
     return(
         <div>
-            <h1>My Top Artists</h1>
+            
+            
             <div id="top-artists">
                 <ol>
                 {userArtists.items ? (
@@ -14,7 +15,10 @@ function TopArtists(){
                     <li key={artist.id}><Artist  artist={artist} /></li>
                     ))
                 ) : (
-                    <p>Loading artists...</p>
+                    <div className="loading-container">
+                    <div className="loading-spinner"></div>
+                    <p>Loading your artists...</p>
+                    </div>
                 )}
                 </ol>
             </div>

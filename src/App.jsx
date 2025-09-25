@@ -17,17 +17,12 @@ function App() {
   const [userPlaylists, setUserPlaylists] = useState([]);
   const [userArtists, setUserArtists] = useState([]);
   const [currPlaying, setCurrPlaying] = useState([]);
-
-  const [accessToken, setAccessToken] = useState(
-    localStorage.getItem("access_token")
-  );
+  const [accessToken, setAccessToken] = useState(localStorage.getItem("access_token"))
 
   const hasInitialized = useRef(false);
-
-  const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-  const redirectUri = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;
-
   const location = useLocation();
+  const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+  
 
   useEffect(() => {
     // Prevent double execution
@@ -35,7 +30,7 @@ function App() {
     hasInitialized.current = true;
 
     async function init() {
-      // 🚨 Don’t auto-login if we’re on landing page ("/")
+      //  Don’t auto-login if we’re on landing page ("/")
       if (location.pathname === "/") {
         return;
       }
