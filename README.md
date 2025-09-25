@@ -20,7 +20,7 @@ Think of it as your own DIY version of Spotify Wrapped — whenever you want it.
 
 * A Spotify account
 * [Spotify Developer App](https://developer.spotify.com/dashboard/applications) (to get a Client ID & Secret)
-* Node.js / Python (depending on your stack)
+* Node.js (depending on your stack)
 
 ### Installation
 
@@ -52,15 +52,6 @@ npm start
 
 Then log in with your Spotify account to authorize access.
 You’ll be able to start pulling your personal music data right away.
-
----
-
-## Roadmap
-
-* [ ] Add data visualizations
-* [ ] Export as CSV/JSON
-* [ ] Compare listening habits with friends
-* [ ] Deploy a web interface
 
 ---
 

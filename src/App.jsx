@@ -10,6 +10,7 @@ import {
 } from "./spotifyApi";
 import Navbar from "./components/Navbar";
 import { Outlet, useLocation } from "react-router";
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
   const [userProfile, setUserProfile] = useState([]);
@@ -114,6 +115,7 @@ function App() {
             currPlaying
           }}
         />
+        <Analytics />
       </div>
     </div>
   );

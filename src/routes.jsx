@@ -22,10 +22,6 @@ const routes = [
         element: <Home />,
       },
       {
-        path: "callback",
-        element: <div>Loading...</div>, // put callback inside /app
-      },
-      {
         path: "popularity",
         element: <PopularityRankings />,
       },
