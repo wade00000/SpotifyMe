@@ -1,7 +1,49 @@
 import { useOutletContext } from "react-router";
+import { useState, useEffect, useRef } from "react";
 
 function CurrentTrack() {
     const { currPlaying } = useOutletContext()
+    const [currentProgress, setCurrentProgress] = useState(0);
+    const previousTrackId = useRef(null);
+    
+    // Detect track changes and reset progress
+    useEffect(() => {
+        const currentTrackId = currPlaying?.item?.id;
+        
+        if (currentTrackId && currentTrackId !== previousTrackId.current) {
+            // Track changed! Reset progress
+            console.log('🎵 Track changed!');
+            setCurrentProgress(currPlaying?.progress_ms || 0);
+            previousTrackId.current = currentTrackId;
+        } else if (currPlaying?.progress_ms !== undefined) {
+            // Same track, just update progress
+            setCurrentProgress(currPlaying.progress_ms);
+        }
+    }, [currPlaying?.item?.id, currPlaying?.progress_ms]);
+    
+    // Update progress every second when playing
+    useEffect(() => {
+        if (!currPlaying?.item || !currPlaying.is_playing) {
+            return;
+        }
+
+        // Update progress every second
+        const interval = setInterval(() => {
+            setCurrentProgress(prev => {
+                const newProgress = prev + 1000; // Add 1 second
+                
+                // If we've reached the end, the track probably switched
+                if (newProgress >= currPlaying.item.duration_ms) {
+                    console.log('🎵 Track probably ended, waiting for new data...');
+                    return currPlaying.item.duration_ms; // Cap at 100%
+                }
+                
+                return newProgress;
+            });
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [currPlaying?.item?.id, currPlaying?.is_playing]);
     
     if (!currPlaying?.item) {
         return (
@@ -18,8 +60,8 @@ function CurrentTrack() {
         )
     }
 
-    // Calculate progress percentage
-    const progressPercent = (currPlaying.progress_ms / currPlaying.item.duration_ms) * 100;
+    // Calculate progress percentage using live progress
+    const progressPercent = Math.min((currentProgress / currPlaying.item.duration_ms) * 100, 100);
     
     // Format time in mm:ss
     const formatTime = (ms) => {
@@ -71,7 +113,7 @@ function CurrentTrack() {
                     ></div>
                 </div>
                 <div className="time-display">
-                    <span>{formatTime(currPlaying.progress_ms)}</span>
+                    <span>{formatTime(currentProgress)}</span>
                     <span>{formatTime(currPlaying.item.duration_ms)}</span>
                 </div>
             </div>
